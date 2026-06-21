@@ -1,25 +1,41 @@
+import streamlit as st
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-movies = pd.read_csv("movies.csv")
+
+st.set_page_config(
+    page_title="Movie Recommendation System",
+    page_icon="🎬",
+    layout="centered"
+)
+
+st.title("🎬 Movie Recommendation System")
+st.write("Select a movie and get similar movie recommendations.")
+
+
+try:
+    movies = pd.read_csv("movies.csv")
+except FileNotFoundError:
+    st.error("movies.csv file not found!")
+    st.stop()
+
 
 movies = movies[['title', 'genres']]
 
+# Create Genre Vectors
 cv = CountVectorizer()
 vectors = cv.fit_transform(movies['genres']).toarray()
 
+
 def recommend(movie_name):
     if movie_name not in movies['title'].values:
-        print("\nMovie not found!")
-        return
+        return []
 
     movie_index = movies[movies['title'] == movie_name].index[0]
 
-    movie_vector = vectors[movie_index]
-
     similarities = cosine_similarity(
-        movie_vector.reshape(1, -1),
+        vectors[movie_index].reshape(1, -1),
         vectors
     )[0]
 
@@ -29,17 +45,22 @@ def recommend(movie_name):
         reverse=True
     )[1:6]
 
-    print("\nRecommended Movies:\n")
-
-    for movie in recommendations:
-        print(movies.iloc[movie[0]].title)
+    return [movies.iloc[i[0]].title for i in recommendations]
 
 
-while True:
-    movie_name = input("\nEnter Movie Name (or 'exit' to quit): ")
+selected_movie = st.selectbox(
+    "Choose a Movie",
+    movies['title'].values
+)
 
-    if movie_name.lower() == "exit":
-        print("Goodbye!")
-        break
 
-    recommend(movie_name)
+if st.button("Recommend Movies"):
+    recommendations = recommend(selected_movie)
+
+    st.subheader("Recommended Movies")
+
+    for i, movie in enumerate(recommendations, start=1):
+        st.write(f"{i}. {movie}")
+
+st.markdown("---")
+st.caption("Built with Streamlit ❤️")
