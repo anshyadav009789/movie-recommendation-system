@@ -6,13 +6,13 @@ A Content-Based Movie Recommendation System built using Python, Pandas, Scikit-L
 
 This project recommends similar movies based on their genres. The recommendation engine uses Natural Language Processing (NLP) techniques and Cosine Similarity to find movies with similar genre patterns.
 
-## 🚀 Features
+## Features
 
 * Search for a movie title
 * Get top 5 similar movie recommendations
 * Built using Machine Learning concepts
 
-## 🛠️ Technologies Used
+## libraries Used
 
 * Python
 * Pandas
@@ -22,7 +22,7 @@ This project recommends similar movies based on their genres. The recommendation
 * Cosine Similarity
 * Streamlit 
 
-## 📂 Project Structure
+## Project Structure
 
 movie-recommendation-system/
 
@@ -37,7 +37,7 @@ movie-recommendation-system/
 └── .gitignore
 
 
-## 🧠 How It Works
+## How It Works
 
 1. Load movie dataset.
 2. Extract movie genres.
@@ -45,7 +45,7 @@ movie-recommendation-system/
 4. Calculate similarity using Cosine Similarity.
 5. Recommend top 5 most similar movies.
 
-## 📊 Example
+## Example
 
 Input:
 
