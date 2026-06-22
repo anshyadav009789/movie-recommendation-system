@@ -63,4 +63,4 @@ if st.button("Recommend Movies"):
         st.write(f"{i}. {movie}")
 
 st.markdown("---")
-st.caption("Built with Streamlit ❤️")
+st.caption("Built with Streamlit")
